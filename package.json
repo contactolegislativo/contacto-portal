@@ -1,0 +1,33 @@
+{
+  "name": "district",
+  "version": "1.0.0",
+  "description": "Este servicio resuelve los request de diputado/<estado>/distrito/<numero> y retorna la informacion basica del diputado seleccionado",
+  "main": "server.js",
+  "scripts": {
+    "start": "node bin/www"
+  },
+  "keywords": [
+    "contacto",
+    "legislativo",
+    "diputado",
+    "mexico"
+  ],
+  "author": "Cristian Colorado <cristian@wedevelop.mx>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "connect-redis": "^3.3.3",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "favicon": "0.0.2",
+    "logger": "0.0.1",
+    "morgan": "^1.9.0",
+    "mysql2": "^1.5.1",
+    "path": "^0.12.7",
+    "redis": "^2.8.0",
+    "sequelize": "^4.31.1",
+    "serve-favicon": "^2.4.5"
+  }
+}

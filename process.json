@@ -1,0 +1,12 @@
+{
+  "apps": [{
+      "name": "portal",
+      "script": "bin/www",
+      "watch": false,
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": "80",
+        "IP_ADDRESS": "0.0.0.0"
+      }
+    }]
+}

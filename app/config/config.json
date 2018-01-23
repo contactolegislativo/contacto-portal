@@ -1,0 +1,41 @@
+{
+  "development": {
+    "database": {
+      "username": "contacto",
+      "password": "contacto",
+      "schema": "contacto_db",
+      "host": "127.0.0.1",
+      "dialect": "mysql",
+      "port": 3306,
+      "define": {
+          "paranoid": true
+      },
+      "logging": false
+    },
+    "session": {
+      "secret": "4815162342"
+    }
+  },
+  "production": {
+    "database": {
+      "username": "contacto",
+      "password": "contacto",
+      "schema": "contacto_db",
+      "host": "mysql",
+      "dialect": "mysql",
+      "port": 3306,
+      "define": {
+          "paranoid": true
+      },
+      "logging": false
+    },
+    "redis" : {
+      "host": "redis",
+      "port": 6379,
+      "ttl" :  260
+    },
+    "session": {
+      "secret": "4815162342"
+    }
+  }
+}

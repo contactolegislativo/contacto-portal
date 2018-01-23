@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ./partials/head %>
+    <meta name="deputy-id" value="<%- deputy.id %>">
+    <meta name="deputy-name" value="<%- deputy.displayName %>">
+  </head>
+
+  <body>
+    <% include ./partials/nav %>
+
+    <div class="d-card">
+      <div class="main-section">
+        <div class="d-card-header p-5">
+          <h3 class="mb-4">El diputado de tu distrito es</h3>
+          <div class="picture">
+            <div class="main">
+              <img src="http://sitl.diputados.gob.mx/LXIII_leg/<%- deputy.picture %>"/>
+            </div>
+            <img class="secondary" src="<%- `http://${host}/assets/img/${deputy.party}.png` %>"/>
+          </div>
+          <h1 class="mt-4"><%- deputy.displayName %></h1>
+          <h3 class="mt-4 t-s"><%- deputy.type %></h3>
+          <h1 class="h3 t-s"><%- deputy.state %>, Distrito <%- deputy.area %></h1>
+          <ul class="btn-group mt-4 p-0">
+            <li class="circle-btn"><i class="fa fa-2x fa-phone"></i></li>
+            <li class="circle-btn"><i class="fa fa-2x fa-twitter"></i></li>
+            <li class="circle-btn"><i class="fa fa-2x fa-envelope"></i></li>
+          </ul>
+        </div>
+      </div>
+      <div class="attendance secondary-section">
+
+      </div>
+      <div class="secondary-section">
+        <h3>Section</h3>
+      </div>
+      <div class="secondary-section">
+        <h3>Section</h3>
+      </div>
+      <div class="secondary-section">
+        <h3>Section</h3>
+      </div>
+      <div class="secondary-section">
+        <h3>Section</h3>
+      </div>
+      <div class="secondary-section">
+        <h3>Section</h3>
+      </div>
+    </div><!-- /.container -->
+
+    <% include ./partials/foot %>
+  </body>
+</html>

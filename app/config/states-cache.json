@@ -1,0 +1,194 @@
+[
+  {
+    "name": "Aguascalientes",
+    "normalize": "Aguascalientes",
+    "snake": "aguascalientes",
+    "districts": 3
+  },
+  {
+    "name": "Baja California",
+    "normalize": "Baja California",
+    "snake": "baja-california",
+    "districts": 8
+  },
+  {
+    "name": "Baja California Sur",
+    "normalize": "Baja California Sur",
+    "snake": "baja-california-sur",
+    "districts": 2
+  },
+  {
+    "name": "Campeche",
+    "normalize": "Campeche",
+    "snake": "campeche",
+    "districts": 2
+  },
+  {
+    "name": "Chiapas",
+    "normalize": "Chiapas",
+    "snake": "chiapas",
+    "districts": 12
+  },
+  {
+    "name": "Chihuahua",
+    "normalize": "Chihuahua",
+    "snake": "chihuahua",
+    "districts": 9
+  },
+  {
+    "name": "Coahuila",
+    "normalize": "Coahuila",
+    "snake": "coahuila",
+    "districts": 7
+  },
+  {
+    "name": "Colima",
+    "normalize": "Colima",
+    "snake": "colima",
+    "districts": 2
+  },
+  {
+    "name": "Ciudad de México",
+    "normalize": "Ciudad de Mexico",
+    "snake": "ciudad-de-mexico",
+    "districts": 27
+  },
+  {
+    "name": "Durango",
+    "normalize": "Durango",
+    "snake": "durango",
+    "districts": 4
+  },
+  {
+    "name": "Guanajuato",
+    "normalize": "Guanajuato",
+    "snake": "guanajuato",
+    "districts": 14
+  },
+  {
+    "name": "Guerrero",
+    "normalize": "Guerrero",
+    "snake": "guerrero",
+    "districts": 9
+  },
+  {
+    "name": "Hidalgo",
+    "normalize": "Hidalgo",
+    "snake": "hidalgo",
+    "districts": 7
+  },
+  {
+    "name": "Jalisco",
+    "normalize": "Jalisco",
+    "snake": "jalisco",
+    "districts": 19
+  },
+  {
+    "name": "México",
+    "normalize": "Mexico",
+    "snake": "mexico",
+    "districts": 40
+  },
+  {
+    "name": "Michoacán",
+    "normalize": "Michoacan",
+    "snake": "michoacan",
+    "districts": 12
+  },
+  {
+    "name": "Morelos",
+    "normalize": "Morelos",
+    "snake": "morelos",
+    "districts": 5
+  },
+  {
+    "name": "Nayarit",
+    "normalize": "Nayarit",
+    "snake": "nayarit",
+    "districts": 3
+  },
+  {
+    "name": "Nuevo León",
+    "normalize": "Nuevo Leon",
+    "snake": "nuevo-leon",
+    "districts": 12
+  },
+  {
+    "name": "Oaxaca",
+    "normalize": "Oaxaca",
+    "snake": "oaxaca",
+    "districts": 11
+  },
+  {
+    "name": "Puebla",
+    "normalize": "Puebla",
+    "snake": "puebla",
+    "districts": 16
+  },
+  {
+    "name": "Querétaro",
+    "normalize": "Queretaro",
+    "snake": "queretaro",
+    "districts": 4
+  },
+  {
+    "name": "Quintana Roo",
+    "normalize": "Quintana Roo",
+    "snake": "quintana-roo",
+    "districts": 3
+  },
+  {
+    "name": "San Luis Potosí",
+    "normalize": "San Luis Potosi",
+    "snake": "san-luis-potosi",
+    "districts": 7
+  },
+  {
+    "name": "Sinaloa",
+    "normalize": "Sinaloa",
+    "snake": "sinaloa",
+    "districts": 8
+  },
+  {
+    "name": "Sonora",
+    "normalize": "Sonora",
+    "snake": "sonora",
+    "districts": 7
+  },
+  {
+    "name": "Tabasco",
+    "normalize": "Tabasco",
+    "snake": "tabasco",
+    "districts": 6
+  },
+  {
+    "name": "Tamaulipas",
+    "normalize": "Tamaulipas",
+    "snake": "tamaulipas",
+    "districts": 8
+  },
+  {
+    "name": "Tlaxcala",
+    "normalize": "Tlaxcala",
+    "snake": "tlaxcala",
+    "districts": 3
+  },
+  {
+    "name": "Veracruz",
+    "normalize": "Veracruz",
+    "snake": "veracruz",
+    "districts": 21
+  },
+  {
+    "name": "Yucatán",
+    "normalize": "Yucatan",
+    "snake": "yucatan",
+    "districts": 5
+  },
+  {
+    "name": "Zacatecas",
+    "normalize": "Zacatecas",
+    "snake": "zacatecas",
+    "districts": 4
+  }
+]
