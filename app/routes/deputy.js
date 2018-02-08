@@ -55,4 +55,31 @@ router.get('/:state/distrito/:id', urlParamsValidator, (req, res, next) => {
 		});
 });
 
+/* /legislatura/LXIII/diputado/{state}/circunscripcion/{ditrict}/{id} */
+router.get('/:state/circunscripcion/:districtId/:id', (req, res, next) => {
+	let queryString =
+  	'select * from Seats s join Deputies d on s.id = d.SeatId where s.state = :stateName and s.area = :district and s.id = :id order by s.id';
+
+  models.sequelize
+	  .query(queryString, {
+	    replacements: {
+				stateName: cache[req.params.state].name,
+				district: req.params.districtId,
+				id: req.params.id
+			},
+	    type: models.sequelize.QueryTypes.SELECT
+	  })
+	  .then(function(deputies) {
+			res.render('index', {
+		  		title: 'Diputado',
+					deputy: deputies[0],
+					alternate: deputies[1],
+					host: req.headers.host
+				});
+	  }, function(err) {
+			console.log(err);
+			renderError(res, `No se pudo encontrar informacion para el distrito  ${req.params.id} de ${cache[req.params.state].name}.`);
+		});
+});
+
 module.exports = router;

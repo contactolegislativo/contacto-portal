@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var sessionInitalizer = require('./config/session');
 var env       = process.env.NODE_ENV || 'development';
 
+var index = require('./routes/index');
 var deputy = require('./routes/deputy');
 
 var app = express();
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
+app.use('/', index);
 app.use('/diputado', deputy);
 
 // catch 404 and forward to error handler

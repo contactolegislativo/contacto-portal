@@ -4,7 +4,11 @@
     <% include ./partials/head %>
     <meta name="deputy-id" value="<%- deputy.id %>">
     <meta name="deputy-name" value="<%- deputy.displayName %>">
+    <meta name="deputy-picture" value="<%- deputy.picture %>">
     <meta name="deputy-party" value="<%- deputy.party %>">
+    <meta name="deputy-email" value="<%- deputy.email %>">
+    <meta name="deputy-facebook" value="<%- deputy.facebook %>">
+    <meta name="deputy-twitter" value="<%- deputy.twitter %>">
   </head>
 
   <body>
@@ -12,32 +16,32 @@
       <% include ./partials/lean_nav %>
     </nav>
 
-    <div>
-      <div class="main-section">
-        <div class="d-card">
-          <div class="header">
-            <div class="picture">
-              <div class="main red">
-                <img src="http://sitl.diputados.gob.mx/LXIII_leg/<%- deputy.picture %>"/>
-              </div>
-              <img class="secondary" src="<%- `http://${host}/assets/img/${deputy.party}.png` %>"/>
+    <div class="main-section">
+      <div class="d-card">
+        <div class="header">
+          <div class="picture">
+            <div class="main red">
+              <img src="http://sitl.diputados.gob.mx/LXIII_leg/<%- deputy.picture %>"/>
             </div>
+            <img class="secondary" src="<%- `http://${host}/assets/img/${deputy.party}.png` %>"/>
           </div>
-          <h1 class="h3 title"><%- deputy.displayName %></h1>
-          <h1 class="h4 t-s"><%- deputy.state %>, Distrito <%- deputy.area %></h1>
-          <h4 class="h4 t-s"><%- deputy.type %></h3>
-          <ul class="btn-group mt-4 p-0">
-            <li class="circle-btn"><a target="_blank" href="mailto:<%- deputy.email %>"><i class="fa fa-envelope"></i></a></li>
-            <li class="circle-btn"><a target="_blank" href="<%- deputy.facebook %>"><i class="fa fa-facebook"></i></a></li>
-            <li class="circle-btn"><a target="_blank" href="<%- deputy.twitter %>"><i class="fa fa-twitter"></i></a></li>
-          </ul>
         </div>
+        <h1 class="h3 title"><%- deputy.displayName %></h1>
+        <h1 class="h4 t-s"><%- deputy.state %>, Distrito <%- deputy.area %></h1>
+        <h4 class="h4 t-s"><%- deputy.type %></h3>
+        <ul class="btn-group mt-4 p-0">
+          <li class="circle-btn"><a target="_blank" href="mailto:<%- deputy.email %>"><i class="fa fa-envelope"></i></a></li>
+          <li class="circle-btn"><a target="_blank" href="<%- deputy.facebook %>"><i class="fa fa-facebook"></i></a></li>
+          <li class="circle-btn"><a target="_blank" href="<%- deputy.twitter %>"><i class="fa fa-twitter"></i></a></li>
+        </ul>
       </div>
-      <div class="attendance secondary-section">
+    </div>
+    <div class="attendance secondary-section">
 
-      </div>
-    </div><!-- /.container -->
+    </div>
+
 
     <% include ./partials/foot %>
+    <script src="/assets/js/deputy.bundle.js"></script>
   </body>
 </html>
