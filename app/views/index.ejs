@@ -26,8 +26,8 @@
             <img class="secondary" src="<%- `http://${host}/assets/img/${deputy.party}.png` %>"/>
           </div>
         </div>
-        <h1 class="h3 title"><%- deputy.displayName %></h1>
-        <h1 class="h4 t-s"><%- deputy.state %>, Distrito <%- deputy.area %></h1>
+        <h1 class="h3 title"><%- deputy.displayName %> <a href="http://sitl.diputados.gob.mx/LXIII_leg/curricula.php?dipt=<%- deputy.id %>" target="_blank"><i class="fa fa-external-link"></i></a></h1>
+        <h1 class="h4 t-s"><i class="fa fa-map-marker pr-2"></i> <%- deputy.state %>, Distrito <%- deputy.area %></h1>
         <h4 class="h4 t-s"><%- deputy.type %></h3>
         <ul class="btn-group mt-4 p-0">
           <li class="circle-btn"><a target="_blank" href="mailto:<%- deputy.email %>"><i class="fa fa-envelope"></i></a></li>
