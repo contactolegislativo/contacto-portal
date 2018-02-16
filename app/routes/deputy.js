@@ -44,7 +44,7 @@ router.get('/:state/distrito/:id', urlParamsValidator, (req, res, next) => {
 	  })
 	  .then(function(deputies) {
 			res.render('index', {
-		  		title: 'Diputado',
+		  		title: `Dip. ${deputies[0].displayName} |  ${deputies[0].state}, Distrito ${deputies[0].area}`,
 					deputy: deputies[0],
 					alternate: deputies[1],
 					host: req.headers.host
@@ -71,7 +71,7 @@ router.get('/:state/circunscripcion/:districtId/:id', (req, res, next) => {
 	  })
 	  .then(function(deputies) {
 			res.render('index', {
-		  		title: 'Diputado',
+		  		title: `Dip. ${deputies[0].displayName} |  ${deputies[0].state}, Distrito ${deputies[0].area}`,
 					deputy: deputies[0],
 					alternate: deputies[1],
 					host: req.headers.host

@@ -5,7 +5,7 @@ var models  = require('../models');
 /* /asistencias */
 router.get('/asistencias',(req, res, next) => {
 	res.render('attendance', {
-			title: 'Diputado'
+			title: 'Asistencia'
 		});
 });
 
