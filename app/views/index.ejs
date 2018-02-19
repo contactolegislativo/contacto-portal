@@ -29,6 +29,11 @@
           </div>
         </div>
         <h1 class="h3 title"><%- deputy.displayName %> <a href="http://sitl.diputados.gob.mx/LXIII_leg/curricula.php?dipt=<%- deputy.id %>" target="_blank"><i class="fa fa-external-link"></i></a></h1>
+        <h6 class="h6 t-s">Suplente: <%- alternate.displayName%>
+          <%if (alternate.attendances > 0) { %>
+            <a href="/legislatura/LXIII/diputado/<%- alternate.slug%>">(Activo)</a>
+          <% } %>
+        </h6>
         <h1 class="h4 t-s"><i class="fa fa-map-marker pr-2"></i> <%- deputy.state %>, Distrito <%- deputy.area %></h1>
         <h4 class="h4 t-s"><%- deputy.type %></h3>
         <ul class="btn-group mt-4 p-0">

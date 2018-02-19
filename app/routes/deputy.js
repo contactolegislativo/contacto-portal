@@ -32,7 +32,7 @@ var urlParamsValidator = function(req, res, next) {
 /* /diputado/<estado>/distrito/<no> */
 router.get('/:state/distrito/:id', urlParamsValidator, (req, res, next) => {
 	let queryString =
-  	'select * from Seats s join Deputies d on s.id = d.SeatId where s.state = :stateName and s.area = :district order by s.id';
+  	'select * from Seats s join Deputies d on s.id = d.SeatId where s.state = :stateName and s.area = :district order by d.latestAttendance desc';
 
   models.sequelize
 	  .query(queryString, {
@@ -58,7 +58,7 @@ router.get('/:state/distrito/:id', urlParamsValidator, (req, res, next) => {
 /* /legislatura/LXIII/diputado/{state}/circunscripcion/{ditrict}/{id} */
 router.get('/:state/circunscripcion/:districtId/:id', (req, res, next) => {
 	let queryString =
-  	'select * from Seats s join Deputies d on s.id = d.SeatId where s.state = :stateName and s.area = :district and s.id = :id order by s.id';
+  	'select * from Seats s join Deputies d on s.id = d.SeatId where s.state = :stateName and s.area = :district and s.id = :id order by d.latestAttendance desc';
 
   models.sequelize
 	  .query(queryString, {
@@ -81,5 +81,31 @@ router.get('/:state/circunscripcion/:districtId/:id', (req, res, next) => {
 			renderError(res, `No se pudo encontrar informacion para el distrito  ${req.params.id} de ${cache[req.params.state].name}.`);
 		});
 });
+
+/* /diputado/<slug> */
+router.get('/:slug', (req, res, next) => {
+	let queryString =
+  	'select * from Seats s join Deputies d on s.id = d.SeatId where s.id in ( select SeatId from Deputies d where d.slug = :slug ) order by d.latestAttendance desc';
+
+  models.sequelize
+	  .query(queryString, {
+	    replacements: {
+				slug: req.params.slug,
+			},
+	    type: models.sequelize.QueryTypes.SELECT
+	  })
+	  .then(function(deputies) {
+			res.render('index', {
+		  		title: `Dip. ${deputies[0].displayName} |  ${deputies[0].state}, Distrito ${deputies[0].area}`,
+					deputy: deputies[0],
+					alternate: deputies[1],
+					host: req.headers.host
+				});
+	  }, function(err) {
+			console.log(err);
+			renderError(res, `No se pudo encontrar informacion para el distrito  ${req.params.id} de ${cache[req.params.state].name}.`);
+		});
+});
+
 
 module.exports = router;
