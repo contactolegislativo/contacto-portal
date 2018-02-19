@@ -32,7 +32,7 @@ var urlParamsValidator = function(req, res, next) {
 /* /diputado/<estado>/distrito/<no> */
 router.get('/:state/distrito/:id', urlParamsValidator, (req, res, next) => {
 	let queryString =
-  	'select * from Seats s join Deputies d on s.id = d.SeatId where s.state = :stateName and s.area = :district order by d.latestAttendance desc';
+  	'select * from Seats s join Deputies d on s.id = d.SeatId where s.state = :stateName and s.area = :district and s.curul is null order by d.latestAttendance desc';
 
   models.sequelize
 	  .query(queryString, {
