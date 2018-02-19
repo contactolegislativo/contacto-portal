@@ -4,7 +4,7 @@
     <% include ./partials/head %>
     <meta name="description" content="Dip.<%- deputy.displayName %>, <%- deputy.state %>, Distrito <%- deputy.area %>, Camara de diputados, LXIII">
 
-    <meta name="deputy-id" value="<%- deputy.id %>">
+    <meta name="deputy-id" value="<%- deputy.SeatId %>">
     <meta name="deputy-name" value="<%- deputy.displayName %>">
     <meta name="deputy-picture" value="<%- deputy.picture %>">
     <meta name="deputy-party" value="<%- deputy.party %>">
@@ -31,7 +31,7 @@
         <h1 class="h3 title"><%- deputy.displayName %> <a href="http://sitl.diputados.gob.mx/LXIII_leg/curricula.php?dipt=<%- deputy.id %>" target="_blank"><i class="fa fa-external-link"></i></a></h1>
         <h6 class="h6 t-s">Suplente: <%- alternate.displayName%>
           <%if (alternate.attendances > 0) { %>
-            <a href="/legislatura/LXIII/diputado/<%- alternate.slug%>">(Activo)</a>
+            <a href="/legislatura/LXIII/diputado/<%- alternate.slug%>">(<%- alternate.attendances%> Asistencias)</a>
           <% } %>
         </h6>
         <h1 class="h4 t-s"><i class="fa fa-map-marker pr-2"></i> <%- deputy.state %>, Distrito <%- deputy.area %></h1>

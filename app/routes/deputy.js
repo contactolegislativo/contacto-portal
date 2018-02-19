@@ -95,10 +95,12 @@ router.get('/:slug', (req, res, next) => {
 	    type: models.sequelize.QueryTypes.SELECT
 	  })
 	  .then(function(deputies) {
+			let titular = deputies.find(deputy => deputy.slug === req.params.slug);
+			let alternate = deputies.find(deputy => deputy.hash === titular.altHash);
 			res.render('index', {
 		  		title: `Dip. ${deputies[0].displayName} |  ${deputies[0].state}, Distrito ${deputies[0].area}`,
-					deputy: deputies[0],
-					alternate: deputies[1],
+					deputy: titular,
+					alternate: alternate,
 					host: req.headers.host
 				});
 	  }, function(err) {
