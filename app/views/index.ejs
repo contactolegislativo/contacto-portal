@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <% include ./partials/head %>
-    <meta name="description" content="Dip.<%- deputy.displayName %>, <%- deputy.state %>, Distrito <%- deputy.area %>, Camara de diputados, LXIII">
+    <% include ./partials/structured_data %>
+    <meta name="application-name" content="Contacto Legislativo">
+    <meta name="keywords" content="Camara de diputados, Mexico, Legislatura LXIII, diputado federal, representante, legislador" />
+    <meta name="description" content="Dip.<%- deputy.displayName %>, <%- deputy.state %>, Distrito <%- deputy.area %>, Camara de diputados, LXIII | Contacto Legislativo te ayuda a ubicar a tu diputado federal de una manera sencilla y a ver su desempeño.">
 
     <meta name="deputy-id" value="<%- deputy.SeatId %>">
     <meta name="deputy-name" value="<%- deputy.displayName %>">
