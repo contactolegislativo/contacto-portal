@@ -22,6 +22,8 @@ var urlParamsValidator = function(req, res, next) {
 	// If state name does not exist
 	if(!cache.hasOwnProperty(stateName)) {
 		renderError(res, `No tenemos informacion para ${stateName}.`);
+	} else if(isNaN(id)) { // id is not a number
+		renderError(res, `El contenido no esta disponible`);
 	} else if(id > cache[stateName].districts) {
 		renderError(res, `El estado ${cache[stateName].name} no tiene distrito ${id}.`);
 	} else {
@@ -56,9 +58,13 @@ router.get('/:state/distrito/:id', urlParamsValidator, (req, res, next) => {
 });
 
 /* /legislatura/LXIII/diputado/{state}/circunscripcion/{ditrict}/{id} */
-router.get('/:state/circunscripcion/:districtId/:id', (req, res, next) => {
+router.get('/:state/circunscripcion/:districtId/:id', urlParamsValidator, (req, res, next) => {
 	let queryString =
   	'select * from Seats s join Deputies d on s.id = d.SeatId where s.state = :stateName and s.area = :district and s.id = :id order by d.latestAttendance desc';
+
+	if(isNaN(req.params.districtId)) { // id is not a number
+		renderError(res, `El contenido no esta disponible`);
+	}
 
   models.sequelize
 	  .query(queryString, {
