@@ -8,6 +8,7 @@ let normalize = function(r) {
   r = r.replace(new RegExp(/[ìíîï]/g),"i");
   r = r.replace(new RegExp(/[òóôõö]/g),"o");
   r = r.replace(new RegExp(/[ùúûü]/g),"u");
+  r = r.replace(new RegExp(/[ñ]/g),"n");
   return r;
 }
 
@@ -32,7 +33,7 @@ models.sequelize.sync().then(function () {
         let id = deputy.id;
         let district = deputy.district;
         let state = normalize(deputy.state).toLowerCase().replace(/ /g,'-');
-        let displayName = normalize(deputy.displayName).toLowerCase().replace(/ /g,'-');
+        let displayName = normalize(deputy.displayName.toLowerCase()).replace(/ /g,'-');
         let url, priority;
         let alternateUrl = `https://contactolegislativo.com/legislatura/LXIII/diputado/${displayName}`;
         if(deputy.type === 'Representación proporcional') {

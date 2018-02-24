@@ -3,6 +3,16 @@ var router = express.Router();
 var models  = require('../models');
 var states = require('../config/states-cache.json');
 
+function normalize(r) {
+  r = r.replace(new RegExp(/[àáâãäå]/g),"a");
+  r = r.replace(new RegExp(/[èéêë]/g),"e");
+  r = r.replace(new RegExp(/[ìíîï]/g),"i");
+  r = r.replace(new RegExp(/[òóôõö]/g),"o");
+  r = r.replace(new RegExp(/[ùúûü]/g),"u");
+  r = r.replace(new RegExp(/[ñ]/g),"n");
+  return r;
+}
+
 var cache = {};
 states.forEach(state => {
 	cache[state.snake] = state;
@@ -93,16 +103,18 @@ router.get('/:slug', (req, res, next) => {
 	let queryString =
   	'select * from Seats s join Deputies d on s.id = d.SeatId where s.id in ( select SeatId from Deputies d where d.slug = :slug ) order by d.latestAttendance desc';
 
+	let slug = normalize(decodeURIComponent(req.params.slug));
+
   models.sequelize
 	  .query(queryString, {
 	    replacements: {
-				slug: req.params.slug,
+				slug: slug,
 			},
 	    type: models.sequelize.QueryTypes.SELECT
 	  })
 	  .then(function(deputies) {
-			let titular = deputies.find(deputy => deputy.slug === req.params.slug);
-			let alternate = deputies.find(deputy => deputy.hash === titular.altHash);
+			let titular = deputies.find(deputy => deputy.slug === slug);
+			let alternate = deputies.find(deputy => deputy.hash === titular.altHash) || deputies.find(deputy => deputy.slug !== slug);
 			res.render('index', {
 		  		title: `Dip. ${deputies[0].displayName} |  ${deputies[0].state}, Distrito ${deputies[0].area}`,
 					deputy: titular,

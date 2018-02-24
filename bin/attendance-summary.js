@@ -1,13 +1,13 @@
 const fs = require('fs');
 const models = require("../app/models");
 
-
-let normalize = function(r) {
+function normalize(r) {
   r = r.replace(new RegExp(/[àáâãäå]/g),"a");
   r = r.replace(new RegExp(/[èéêë]/g),"e");
   r = r.replace(new RegExp(/[ìíîï]/g),"i");
   r = r.replace(new RegExp(/[òóôõö]/g),"o");
   r = r.replace(new RegExp(/[ùúûü]/g),"u");
+  r = r.replace(new RegExp(/[ñ]/g),"n");
   return r;
 }
 
@@ -39,7 +39,7 @@ models.sequelize.sync().then(function () {
     })
     .then(function(deputies) {
       deputies.forEach(deputy => {
-        let slug = normalize(deputy.displayName).replace(/ /g, '-').toLowerCase();
+        let slug = normalize(deputy.displayName.toLowerCase()).replace(/ /g, '-');
         let attendances = deputy.attendances;
         let latestAttendance = deputy.latestAttendance;
 
@@ -55,7 +55,6 @@ models.sequelize.sync().then(function () {
       console.log(queryUpdate);
     }, function(err) {
       console.log(err);
-      renderError(res, `No se pudo encontrar informacion`);
     });
 
 });
