@@ -5,16 +5,16 @@
   </head>
 
   <body>
-    <% include ./partials/nav %>
-    
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <% include ./partials/lean_nav %>
+    </nav>
+
+    <div class="container mt-5">
 
       <div class="alert alert-danger" role="alert">
         <strong>ERROR:</strong> <%- message %>
       </div>
-
+      <% include ./partials/foot %>
     </div><!-- /.container -->
-    
-    <%- include ./partials/foot %>
   </body>
 </html>

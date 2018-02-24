@@ -41,8 +41,20 @@
         <h4 class="h4 t-s"><%- deputy.type %></h3>
         <ul class="btn-group mt-4 p-0">
           <li class="circle-btn"><a target="_blank" href="mailto:<%- deputy.email %>"><i class="fa fa-envelope"></i></a></li>
-          <li class="circle-btn"><a target="_blank" href="<%- deputy.facebook %>"><i class="fa fa-facebook"></i></a></li>
-          <li class="circle-btn"><a target="_blank" href="<%- deputy.twitter %>"><i class="fa fa-twitter"></i></a></li>
+          <li class="circle-btn">
+            <%if (deputy.facebook === 'NA') { %>
+              <a target="_blank" href="https://www.google.com.mx/search?q=<%-encodeURI(deputy.displayName + ' diputado facebook') %>"><i class="fa fa-facebook"></i></a>
+            <% } else { %>
+              <a target="_blank" href="<%- deputy.facebook %>"><i class="fa fa-facebook"></i></a>
+            <% } %>
+          </li>
+          <li class="circle-btn">
+            <%if (deputy.twitter === 'NA') { %>
+              <a target="_blank" href="https://www.google.com.mx/search?q=<%-encodeURI(deputy.displayName  + ' diputado twitter') %>"><i class="fa fa-twitter"></i></a>
+            <% } else { %>
+              <a target="_blank" href="<%- deputy.twitter %>"><i class="fa fa-twitter"></i></a>
+            <% } %>
+          </li>
         </ul>
       </div>
     </div>
