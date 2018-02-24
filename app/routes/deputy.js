@@ -41,6 +41,22 @@ var urlParamsValidator = function(req, res, next) {
 	}
 }
 
+var urlParamsValidatorCirc = function(req, res, next) {
+	let stateName = req.params.state;
+	let id = req.params.id;
+
+	// If state name does not exist
+	if(!cache.hasOwnProperty(stateName)) {
+		renderError(res, `No tenemos informacion para ${stateName}.`);
+	} else if(isNaN(id)) { // id is not a number
+		renderError(res, `El contenido no esta disponible`);
+	} if(isNaN(req.params.districtId)) { // id is not a number
+		renderError(res, `El contenido no esta disponible`);
+	} else {
+		next();
+	}
+}
+
 /* /diputado/<estado>/distrito/<no> */
 router.get('/:state/distrito/:id', urlParamsValidator, (req, res, next) => {
 	let queryString =
@@ -68,13 +84,9 @@ router.get('/:state/distrito/:id', urlParamsValidator, (req, res, next) => {
 });
 
 /* /legislatura/LXIII/diputado/{state}/circunscripcion/{ditrict}/{id} */
-router.get('/:state/circunscripcion/:districtId/:id', urlParamsValidator, (req, res, next) => {
+router.get('/:state/circunscripcion/:districtId/:id', urlParamsValidatorCirc, (req, res, next) => {
 	let queryString =
   	'select * from Seats s join Deputies d on s.id = d.SeatId where s.state = :stateName and s.area = :district and s.id = :id order by d.latestAttendance desc';
-
-	if(isNaN(req.params.districtId)) { // id is not a number
-		renderError(res, `El contenido no esta disponible`);
-	}
 
   models.sequelize
 	  .query(queryString, {
@@ -86,12 +98,17 @@ router.get('/:state/circunscripcion/:districtId/:id', urlParamsValidator, (req, 
 	    type: models.sequelize.QueryTypes.SELECT
 	  })
 	  .then(function(deputies) {
-			res.render('index', {
-		  		title: `Dip. ${deputies[0].displayName} |  ${deputies[0].state}, Distrito ${deputies[0].area}`,
-					deputy: deputies[0],
-					alternate: deputies[1],
-					host: req.headers.host
-				});
+			if(deputies.length === 0) {
+				renderError(res, `El contenido no esta disponible`);
+			} else {
+				res.render('index', {
+			  		title: `Dip. ${deputies[0].displayName} |  ${deputies[0].state}, Distrito ${deputies[0].area}`,
+						deputy: deputies[0],
+						alternate: deputies[1],
+						host: req.headers.host
+					});
+
+			}
 	  }, function(err) {
 			console.log(err);
 			renderError(res, `No se pudo encontrar informacion para el distrito  ${req.params.id} de ${cache[req.params.state].name}.`);
