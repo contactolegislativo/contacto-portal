@@ -26,7 +26,7 @@
         <div class="header">
           <div class="picture">
             <div class="main red">
-              <img src="http://sitl.diputados.gob.mx/LXIII_leg/<%- deputy.picture %>"/>
+              <img src="<%- `http://${host}/assets/img/deputies/${deputy.slug}.jpg` %>"/>
             </div>
             <img class="secondary" src="<%- `http://${host}/assets/img/${deputy.party}.png` %>"/>
           </div>
