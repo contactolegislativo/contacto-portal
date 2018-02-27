@@ -4,19 +4,22 @@ var models  = require('../models');
 var states = require('../config/states-cache.json');
 
 function normalize(r) {
-  r = r.replace(new RegExp(/[àáâãäå]/g),"a");
-  r = r.replace(new RegExp(/[èéêë]/g),"e");
-  r = r.replace(new RegExp(/[ìíîï]/g),"i");
-  r = r.replace(new RegExp(/[òóôõö]/g),"o");
-  r = r.replace(new RegExp(/[ùúûü]/g),"u");
-  r = r.replace(new RegExp(/[ñ]/g),"n");
-  return r;
+  return r.replace(new RegExp(/[àáâãäå]/g),"a")
+          .replace(new RegExp(/[èéêë]/g),"e")
+          .replace(new RegExp(/[ìíîï]/g),"i")
+          .replace(new RegExp(/[òóôõö]/g),"o")
+          .replace(new RegExp(/[ùúûü]/g),"u")
+          .replace(new RegExp(/[ñ]/g),"n");
 }
 
 var cache = {};
 states.forEach(state => {
 	cache[state.snake] = state;
 });
+
+var renderTitle = function(deputy) {
+  return `Diputado ${deputy.displayName} |  ${deputy.state}, Distrito ${deputy.area}`;
+}
 
 var renderError = function(res, message) {
 	res.render('error', {
@@ -72,7 +75,7 @@ router.get('/:state/distrito/:id', urlParamsValidator, (req, res, next) => {
 	  })
 	  .then(function(deputies) {
 			res.render('index', {
-		  		title: `Dip. ${deputies[0].displayName} |  ${deputies[0].state}, Distrito ${deputies[0].area}`,
+		  		title: renderTitle(deputy[0]),
 					deputy: deputies[0],
 					alternate: deputies[1],
 					host: req.headers.host
@@ -102,7 +105,7 @@ router.get('/:state/circunscripcion/:districtId/:id', urlParamsValidatorCirc, (r
 				renderError(res, `El contenido no esta disponible`);
 			} else {
 				res.render('index', {
-			  		title: `Dip. ${deputies[0].displayName} |  ${deputies[0].state}, Distrito ${deputies[0].area}`,
+			  		title: renderTitle(deputy[0]),
 						deputy: deputies[0],
 						alternate: deputies[1],
 						host: req.headers.host
@@ -133,7 +136,7 @@ router.get('/:slug', (req, res, next) => {
 			let titular = deputies.find(deputy => deputy.slug === slug);
 			let alternate = deputies.find(deputy => deputy.hash === titular.altHash) || deputies.find(deputy => deputy.slug !== slug);
 			res.render('index', {
-		  		title: `Dip. ${deputies[0].displayName} |  ${deputies[0].state}, Distrito ${deputies[0].area}`,
+		  		title: renderTitle(deputy[0]),
 					deputy: titular,
 					alternate: alternate,
 					host: req.headers.host
@@ -143,6 +146,5 @@ router.get('/:slug', (req, res, next) => {
 			renderError(res, `No se pudo encontrar informacion para el distrito  ${req.params.id} de ${cache[req.params.state].name}.`);
 		});
 });
-
 
 module.exports = router;
