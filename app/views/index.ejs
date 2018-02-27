@@ -26,9 +26,9 @@
         <div class="header">
           <div class="picture">
             <div class="main red">
-              <img src="<%- `/assets/img/deputies/${deputy.slug}.jpg` %>"/>
+              <img alt="Diputado <%- deputy.displayName%>" src="<%- `/assets/img/deputies/${deputy.slug}.jpg` %>"/>
             </div>
-            <img class="secondary" src="<%- `/assets/img/${deputy.party}.png` %>"/>
+            <img class="secondary" alt="logo partido <%- deputy.party%>" src="<%- `/assets/img/${deputy.party}.png` %>"/>
           </div>
         </div>
         <h1 class="h3 title"><%- deputy.displayName %>
