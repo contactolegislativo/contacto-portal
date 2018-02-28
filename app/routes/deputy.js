@@ -75,7 +75,7 @@ router.get('/:state/distrito/:id', urlParamsValidator, (req, res, next) => {
 	  })
 	  .then(function(deputies) {
 			res.render('index', {
-		  		title: renderTitle(deputy[0]),
+		  		title: renderTitle(deputies[0]),
 					deputy: deputies[0],
 					alternate: deputies[1],
 					host: req.headers.host
@@ -105,7 +105,7 @@ router.get('/:state/circunscripcion/:districtId/:id', urlParamsValidatorCirc, (r
 				renderError(res, `El contenido no esta disponible`);
 			} else {
 				res.render('index', {
-			  		title: renderTitle(deputy[0]),
+			  		title: renderTitle(deputies[0]),
 						deputy: deputies[0],
 						alternate: deputies[1],
 						host: req.headers.host
@@ -136,7 +136,7 @@ router.get('/:slug', (req, res, next) => {
 			let titular = deputies.find(deputy => deputy.slug === slug);
 			let alternate = deputies.find(deputy => deputy.hash === titular.altHash) || deputies.find(deputy => deputy.slug !== slug);
 			res.render('index', {
-		  		title: renderTitle(deputy[0]),
+		  		title: renderTitle(titular),
 					deputy: titular,
 					alternate: alternate,
 					host: req.headers.host
