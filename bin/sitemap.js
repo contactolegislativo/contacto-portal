@@ -1,7 +1,6 @@
 const fs = require('fs');
 const models = require("../app/models");
 
-
 let normalize = function(r) {
   r = r.replace(new RegExp(/[àáâãäå]/g),"a");
   r = r.replace(new RegExp(/[èéêë]/g),"e");
@@ -12,10 +11,20 @@ let normalize = function(r) {
   return r;
 }
 
+let slugify = function(term) {
+  return normalize(term.toLowerCase()).replace(/ /g,"-");
+}
+
 // NODE_ENV=production node bin/sitemap.js
 models.sequelize.sync().then(function () {
 
-  let queryString = 'select * from attendance_list';
+  let queryString = // 'select * from attendance_list';
+
+  `select s.id, s.type, s.state, s.area as district, d.displayName, d.party, count(1) as entries,  max(latestAttendance) latestAttendance
+    from Seats s join Deputies d on d.SeatId = s.id join Attendances a on a.DeputyId = d.id
+    and (a.attendance in ('A' , 'AO', 'PM', 'IV'))
+    group by s.id, s.type, s.state, s.area, d.id, d.displayName, d.party
+    order by s.id, max(latestAttendance) asc`;
 
   models.sequelize
     .query(queryString, {
@@ -29,23 +38,15 @@ models.sequelize.sync().then(function () {
       buffer += `\t<url>\n\t\t<loc>https://contactolegislativo.com/nosotros</loc>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>0.9</priority>\n\t</url> \n`;
       buffer += `\t<url>\n\t\t<loc>https://contactolegislativo.com/privacidad</loc>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>0.9</priority>\n\t</url> \n`;
 
+      console.log(`${deputies.length} generated`)
       deputies.forEach(deputy => {
         let id = deputy.id;
         let district = deputy.district;
-        let state = normalize(deputy.state).toLowerCase().replace(/ /g,'-');
-        let displayName = normalize(deputy.displayName.toLowerCase()).replace(/ /g,'-');
-        let url, priority;
-        let alternateUrl = `https://contactolegislativo.com/legislatura/LXIII/diputado/${displayName}`;
-        if(deputy.type === 'Representación proporcional') {
-          priority = '0.7';
-          url = `https://contactolegislativo.com/legislatura/LXIII/diputado/${state}/circunscripcion/${district}/${id}`;
-        } else {
-          priority = '0.8';
-          url = `https://contactolegislativo.com/legislatura/LXIII/diputado/${state}/distrito/${district}`;
-        }
+        let state = slugify(deputy.state);
+        let displayName = slugify(deputy.displayName);
+        let url = `https://contactolegislativo.com/camara-de-diputados/LXIII/${displayName}`;
 
-        buffer += `\t<url>\n\t\t<loc>${url}</loc>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>${priority}</priority>\n\t</url> \n`;
-        buffer += `\t<url>\n\t\t<loc>${alternateUrl}</loc>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>0.6</priority>\n\t</url> \n`;
+        buffer += `\t<url>\n\t\t<loc>${url}</loc>\n\t\t<lastmod>2018-03-01</lastmod>\n\t\t<changefreq>weekly</changefreq>\n\t\t<priority>0.9</priority>\n\t</url> \n`;
 
       });
       buffer += '</urlset>';
