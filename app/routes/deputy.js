@@ -18,7 +18,7 @@ states.forEach(state => {
 });
 
 var renderTitle = function(deputy) {
-  return `Diputado ${deputy.displayName} |  ${deputy.state}, Distrito ${deputy.area}`;
+  return `${deputy.displayName} |  ${deputy.state}, Distrito ${deputy.area}`;
 }
 
 var renderError = function(res, message) {

@@ -4,7 +4,6 @@
     <% include ./partials/head %>
     <% include ./partials/structured_data %>
     <meta name="application-name" content="Contacto Legislativo">
-    <meta name="keywords" content="Legislador, Diputado Federal, Cámara de diputados, México, Legislatura LXIII" />
     <meta name="description" content="Diputado de  <%- deputy.type.toLowerCase() %> en la LXIII legislatura de la Cámara de diputados para el estado de <%- deputy.state %>, Distrito <%- deputy.area %>, <%- deputy.party.toUpperCase()%> | Contacto Legislativo te provee un análisis estadístico de su desempeño.">
 
     <meta name="deputy-id" value="<%- deputy.SeatId %>">
@@ -34,7 +33,7 @@
         <h1 class="h3 title"><%- deputy.displayName %></h1>
         <h6 class="h6 t-s">Suplente: <%- alternate.displayName%>
           <%if (alternate.attendances > 0) { %>
-            <a href="/legislatura/LXIII/diputado/<%- alternate.slug%>">(<%- alternate.attendances%> Asistencias)</a>
+            <a href="/camara-de-diputados/LXIII/<%- alternate.slug%>">(<%- alternate.attendances%> Asistencias)</a>
           <% } %>
         </h6>
         <h1 class="h4 t-s"><i class="fa fa-map-marker pr-2"></i> <%- deputy.state %>, Distrito <%- deputy.area %></h1>
