@@ -31,12 +31,12 @@ models.sequelize.sync().then(function () {
       type: models.sequelize.QueryTypes.SELECT
     })
     .then(function(deputies) {
-      let buffer = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+      let buffer = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
 
-      buffer += `\t<url>\n\t\t<loc>https://contactolegislativo.com</loc>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>1</priority>\n\t</url> \n`;
-      buffer += `\t<url>\n\t\t<loc>https://contactolegislativo.com/legislatura/LXIII/asistencias</loc>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>0.95</priority>\n\t</url> \n`;
-      buffer += `\t<url>\n\t\t<loc>https://contactolegislativo.com/nosotros</loc>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>0.9</priority>\n\t</url> \n`;
-      buffer += `\t<url>\n\t\t<loc>https://contactolegislativo.com/privacidad</loc>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>0.9</priority>\n\t</url> \n`;
+      buffer += `\t<url>\n\t\t<loc>https://contactolegislativo.com</loc>\n\t\t<xhtml:link rel="alternate" hreflang="es-mx" href="https://contactolegislativo.com"/>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>1</priority>\n\t</url> \n`;
+      buffer += `\t<url>\n\t\t<loc>https://contactolegislativo.com/legislatura/LXIII/asistencias</loc>\n\t\t<xhtml:link rel="alternate" hreflang="es-mx" href="https://contactolegislativo.com/legislatura/LXIII/asistencias"/>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>0.95</priority>\n\t</url> \n`;
+      buffer += `\t<url>\n\t\t<loc>https://contactolegislativo.com/nosotros</loc>\n\t\t<xhtml:link rel="alternate" hreflang="es-mx" href="https://contactolegislativo.com/nosotros"/>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>0.9</priority>\n\t</url> \n`;
+      buffer += `\t<url>\n\t\t<loc>https://contactolegislativo.com/privacidad</loc>\n\t\t<xhtml:link rel="alternate" hreflang="es-mx" href="https://contactolegislativo.com/privacidad"/>\n\t\t<lastmod>2018-02-01</lastmod>\n\t\t<changefreq>monthly</changefreq>\n\t\t<priority>0.9</priority>\n\t</url> \n`;
 
       console.log(`${deputies.length} generated`)
       deputies.forEach(deputy => {
@@ -46,7 +46,7 @@ models.sequelize.sync().then(function () {
         let displayName = slugify(deputy.displayName);
         let url = `https://contactolegislativo.com/camara-de-diputados/LXIII/${displayName}`;
 
-        buffer += `\t<url>\n\t\t<loc>${url}</loc>\n\t\t<lastmod>2018-03-01</lastmod>\n\t\t<changefreq>weekly</changefreq>\n\t\t<priority>0.9</priority>\n\t</url> \n`;
+        buffer += `\t<url>\n\t\t<loc>${url}</loc>\n\t\t<xhtml:link rel="alternate" hreflang="es-mx" href="${url}"/>\n\t\t<lastmod>2018-03-01</lastmod>\n\t\t<changefreq>weekly</changefreq>\n\t\t<priority>0.9</priority>\n\t</url> \n`;
 
       });
       buffer += '</urlset>';
