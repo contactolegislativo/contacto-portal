@@ -46,14 +46,14 @@
           <li class="circle-btn" data-toggle="tooltip" data-placement="bottom" title="Correo">
             <a target="_blank" href="mailto:<%- deputy.email %>"><i class="fa fa-envelope"></i></a></li>
           <li class="circle-btn" data-toggle="tooltip" data-placement="bottom" title="Facebook">
-            <%if (deputy.facebook === 'NA') { %>
+            <%if (!deputy.facebook) { %>
               <a target="_blank" href="https://www.google.com.mx/search?q=<%-encodeURI(deputy.displayName + ' diputado facebook') %>"><i class="fa fa-facebook"></i></a>
             <% } else { %>
               <a target="_blank" href="<%- deputy.facebook %>"><i class="fa fa-facebook"></i></a>
             <% } %>
           </li>
           <li class="circle-btn" data-toggle="tooltip" data-placement="bottom" title="Twitter">
-            <%if (deputy.twitter === 'NA') { %>
+            <%if (!deputy.twitter) { %>
               <a target="_blank" href="https://www.google.com.mx/search?q=<%-encodeURI(deputy.displayName  + ' diputado twitter') %>"><i class="fa fa-twitter"></i></a>
             <% } else { %>
               <a target="_blank" href="<%- deputy.twitter %>"><i class="fa fa-twitter"></i></a>
