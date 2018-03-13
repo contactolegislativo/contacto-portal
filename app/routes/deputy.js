@@ -9,7 +9,14 @@ function normalize(r) {
           .replace(new RegExp(/[ìíîï]/g),"i")
           .replace(new RegExp(/[òóôõö]/g),"o")
           .replace(new RegExp(/[ùúûü]/g),"u")
-          .replace(new RegExp(/[ñ]/g),"n");
+          .replace(new RegExp(/[ñ]/g),"n")
+          /*Bad encoding remain in google */
+          .replace('Ã±','n')
+          .replace('Ã¡','a')
+          .replace('Ã©','e')
+          .replace('Ã­','i')
+          .replace('Ã³','o')
+          .replace('Ãº','u');
 }
 
 var cache = {};

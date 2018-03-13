@@ -28,7 +28,7 @@ router.get('/:slug', (req, res, next) => {
 	  })
 	  .then(function(deputies) {
 			let titular = deputies.find(deputy => deputy.slug === slug);
-			let alternate = deputies.find(deputy => deputy.hash === titular.altHash) || deputies.find(deputy => deputy.slug !== slug);
+			let alternate = deputies.find(deputy => deputy.slug !== slug) || { displayName: 'Ninguno', attendances: 0 };
 			res.render('index', {
 		  		title: renderTitle(titular),
 					deputy: titular,
