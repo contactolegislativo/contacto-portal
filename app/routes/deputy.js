@@ -3,6 +3,12 @@ var router = express.Router();
 var models  = require('../models');
 var states = require('../config/states-cache.json');
 
+/*
+*
+*  DEPRECATED: These routes have been deprecated in the sprit of better SEO practices
+*             however remain active because Google crawler takes long to remove them
+*/
+
 function normalize(r) {
   return r.replace(new RegExp(/[àáâãäå]/g),"a")
           .replace(new RegExp(/[èéêë]/g),"e")

@@ -20,11 +20,7 @@ models.sequelize.sync().then(function () {
 
   let queryString = // 'select * from attendance_list';
 
-  `select s.id, s.type, s.state, s.area as district, d.displayName, d.party, count(1) as entries,  max(latestAttendance) latestAttendance
-    from Seats s join Deputies d on d.SeatId = s.id join Attendances a on a.DeputyId = d.id
-    and (a.attendance in ('A' , 'AO', 'PM', 'IV'))
-    group by s.id, s.type, s.state, s.area, d.id, d.displayName, d.party
-    order by s.id, max(latestAttendance) asc`;
+  `select d.id, d.slug, count(1) from Deputies d join Attendances a on a.DeputyId = d.id where slug is not null group by d.id, d.slug`;
 
   models.sequelize
     .query(queryString, {
@@ -40,11 +36,7 @@ models.sequelize.sync().then(function () {
 
       console.log(`${deputies.length} generated`)
       deputies.forEach(deputy => {
-        let id = deputy.id;
-        let district = deputy.district;
-        let state = slugify(deputy.state);
-        let displayName = slugify(deputy.displayName);
-        let url = `https://contactolegislativo.com/camara-de-diputados/LXIII/${displayName}`;
+        let url = `https://contactolegislativo.com/camara-de-diputados/LXIII/${deputy.slug}`;
 
         buffer += `\t<url>\n\t\t<loc>${url}</loc>\n\t\t<xhtml:link rel="alternate" hreflang="es-mx" href="${url}"/>\n\t\t<lastmod>2018-03-01</lastmod>\n\t\t<changefreq>weekly</changefreq>\n\t\t<priority>0.9</priority>\n\t</url> \n`;
 
