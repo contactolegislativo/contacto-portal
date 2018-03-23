@@ -2,69 +2,225 @@
 <html lang="es">
   <head>
     <% include ./partials/head %>
-    <% include ./partials/structured_data %>
     <meta name="application-name" content="Contacto Legislativo">
-    <meta name="description" content="Diputado de  <%- deputy.type.toLowerCase() %> en la LXIII legislatura de la Cámara de diputados para el estado de <%- deputy.state %>, Distrito <%- deputy.area %>, <%- deputy.party.toUpperCase()%> | Contacto Legislativo te provee un análisis estadístico de su desempeño.">
-
-    <meta name="deputy-id" value="<%- deputy.SeatId %>">
-    <meta name="deputy-name" value="<%- deputy.displayName %>">
-    <meta name="deputy-slug" value="<%- deputy.slug %>">
-    <meta name="deputy-party" value="<%- deputy.party %>">
-    <meta name="deputy-email" value="<%- deputy.email %>">
-    <meta name="deputy-facebook" value="<%- deputy.facebook %>">
-    <meta name="deputy-twitter" value="<%- deputy.twitter %>">
+    <meta name="description" content="">
+    <script>
+      window.data = <%- JSON.stringify(data) %>;
+    </script>
+    <style>
+      .table-link {
+        cursor: context-menu;
+      }
+    </style>
   </head>
 
   <body>
     <nav class="stack-fix navbar navbar-expand-lg navbar-dark navbar-transparent">
-      <% include ./partials/lean_nav %>
+      <% include ./partials/nav %>
     </nav>
 
-    <div class="main-section">
-      <div class="d-card">
-        <div class="header">
-          <div class="picture">
-            <div class="main red">
-              <img alt="Diputado <%- deputy.displayName%>" src="<%- `/assets/img/deputies/${deputy.slug}.jpg` %>"/>
-            </div>
-            <img class="secondary" alt="logo partido <%- deputy.party%>" src="<%- `/assets/img/${deputy.party}.png` %>"/>
-          </div>
-        </div>
-        <h1 class="h3 title"><%- deputy.displayName %></h1>
-        <h6 class="h6 t-s">Suplente: <%- alternate.displayName%>
-          <%if (alternate.attendances > 0) { %>
-            <a href="/camara-de-diputados/LXIII/<%- alternate.slug%>">(<%- alternate.attendances%> Asistencias)</a>
-          <% } %>
-        </h6>
-        <h1 class="h4 t-s"><i class="fa fa-map-marker pr-2"></i> <%- deputy.state %>, Distrito <%- deputy.area %></h1>
-        <h4 class="h4 t-s"><%- deputy.type %></h3>
-        <ul class="btn-group mt-4 p-0">
-          <li class="circle-btn" data-toggle="tooltip" data-placement="bottom" title="Curricula">
-            <a target="_blank" rel="nofollow" href="http://sitl.diputados.gob.mx/LXIII_leg/curricula.php?dipt=<%- deputy.id %>"><i class="fa fa-user"></i></a></li>
-          <li class="circle-btn" data-toggle="tooltip" data-placement="bottom" title="Perfil">
-            <a target="_blank" rel="nofollow" href="<%- deputy.profile %>"><i class="fa fa-university"></i></a></li>
-          <li class="circle-btn" data-toggle="tooltip" data-placement="bottom" title="Correo">
-            <a target="_blank" rel="nofollow" href="mailto:<%- deputy.email %>"><i class="fa fa-envelope"></i></a></li>
-          <li class="circle-btn" data-toggle="tooltip" data-placement="bottom" title="Facebook">
-            <%if (!deputy.facebook) { %>
-              <a target="_blank" rel="nofollow" href="https://www.google.com.mx/search?q=<%-encodeURI(deputy.displayName + ' diputado facebook') %>"><i class="fa fa-facebook"></i></a>
-            <% } else { %>
-              <a target="_blank" rel="nofollow" href="<%- deputy.facebook %>"><i class="fa fa-facebook"></i></a>
-            <% } %>
-          </li>
-          <li class="circle-btn" data-toggle="tooltip" data-placement="bottom" title="Twitter">
-            <%if (!deputy.twitter) { %>
-              <a target="_blank" rel="nofollow" href="https://www.google.com.mx/search?q=<%-encodeURI(deputy.displayName  + ' diputado twitter') %>"><i class="fa fa-twitter"></i></a>
-            <% } else { %>
-              <a target="_blank" rel="nofollow" href="<%- deputy.twitter %>"><i class="fa fa-twitter"></i></a>
-            <% } %>
-          </li>
-        </ul>
+    <div class="d-card">
+      <div class="header hero">
+        <h1 class="h2">Cámara de Diputados, <%- legislatura %></h1>
       </div>
     </div>
-    <div class="attendance secondary-section">
-
+    <div class="pt-5 p-3">
+      <p>En México, la Cámara de Diputados del Congreso de la Unión, es la cámara baja del Congreso de la Unión. Se compone de 500 diputados electos en su totalidad cada tres años, por cada uno de los cuales se elige además un suplente.</p>
+      <p>La Cámara de Diputados está integrada por 300 diputados electos según el principio de votación mayoritaria relativa, en el cual compiten por el voto con otros candidatos del mismo distrito electoral, y 200 diputados que son electos según el principio de representación proporcional, mediante el cual los partidos proponen una lista plurinominal que se reduce de acuerdo al porcentaje de asientos de mayoria relativa ganados en cada circunscipcion.</p>
     </div>
-    <script async src="/assets/js/deputy.bundle.js"></script>
+
+    <div class="distribution-chart chart">
+      <div class="pl-3 pr-3">
+        <h2 class="h3">Composición por grupo parlamentario</h2>
+        <p class="mb-5 text-justify">Asi es como se distribuyen los integrantes de la <%- legislatura %> legislatura de acuerdo a su afiliacion en partido: </p>
+      </div>
+      <div class="workspace" toggle="distribution-table"></div>
+      <p class="text-center mt-3">
+        <span class="table-link font-italic font-weight-light" toggle="distribution-table" toggle-text="Esconder tabla de datos">Ver tabla de datos</span>
+      </p>
+      <div class="distribution-table p-3">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>Partido</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%
+              let total = 0;
+              data.chamberByParty.forEach(item => {
+                total += item.quantity;
+            %>
+              <tr>
+                <td><%- item.party.toUpperCase() %></td>
+                <td><%- item.quantity %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+          <tfoot class="font-weight-bold">
+            <tr>
+              <td></td>
+              <td><%- total %></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="ages-chart chart pt-3 pb-3">
+      <div class="pl-3 pr-3">
+        <h2 class="h3">Composición por promedio de edades en cada partido </h2>
+        <p class="mb-3 text-justify">En esta grafica te mostramos cuales son los rangos de edades de cada partido y promedio: </p>
+      </div>
+      <div class="workspace" toggle="ages-table"></div>
+      <p class="text-center mt-3">
+        <span class="table-link font-italic font-weight-light" toggle="ages-table" toggle-text="Esconder tabla de datos">Ver tabla de datos</span>
+      </p>
+      <div class="ages-table p-3">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th rowspan="2">Partido</th>
+              <th colspan="5" class="text-center">Edad</th>
+            </tr>
+            <tr>
+              <th>Min</th>
+              <th>Min Std</th>
+              <th>Promedio</th>
+              <th>Max Std</th>
+              <th>Max</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%
+              total = 0;
+              data.chamberAgeDistribution.forEach(item => {
+                total += item.avg;
+            %>
+              <tr>
+                <td><%- item.party.toUpperCase() %></td>
+                <td><%- item.min %></td>
+                <td><%- item.std_min %></td>
+                <td><%- item.avg %></td>
+                <td><%- item.std_max %></td>
+                <td><%- item.max %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+          <tfoot class="font-weight-bold">
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><%- (total / data.chamberAgeDistribution.length).toFixed(2) %></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="gender-chart chart pt-3 pb-3">
+      <div class="pl-3 pr-3">
+        <h2 class="h3">Composición por genero </h2>
+        <p class="mb-3 text-justify">En esta grafica te mostramos cual es la distribucion en legislatura <%- legislatura %> de acuerdo a si genero: </p>
+      </div>
+      <div class="workspace" toggle="gender-table"></div>
+      <p class="text-center mt-3">
+        <span class="table-link font-italic font-weight-light" toggle="gender-table" toggle-text="Esconder tabla de datos">Ver tabla de datos</span>
+      </p>
+      <div class="gender-table p-3">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>Partido</th>
+              <th>Mujeres</th>
+              <th>%</th>
+              <th>Hombres</th>
+              <th>%</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%
+              let grandTotal = { total: 0, male: 0, female: 0 };
+              data.chamberGender.forEach(item => {
+                let total = item.male + item.female;
+                grandTotal.total += total;
+                grandTotal.male += item.male;
+                grandTotal.female += item.female;
+            %>
+              <tr>
+                <td><%- item.party.toUpperCase() %></td>
+                <td><%- item.female %></td>
+                <td><%- ((item.female * 100) / total).toFixed(2) %></td>
+                <td><%- item.male %></td>
+                <td><%- ((item.male * 100) / total).toFixed(2) %></td>
+                <td><%- total %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+          <tfoot class="font-weight-bold">
+            <tr>
+              <td></td>
+              <td><%- grandTotal.female %></td>
+              <td><%- ((grandTotal.female * 100) / grandTotal.total).toFixed(2) %></td>
+              <td><%- grandTotal.male %></td>
+              <td><%- ((grandTotal.male * 100) / grandTotal.total).toFixed(2) %></td>
+              <td><%- grandTotal.total %></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="studies-chart chart pt-3 pb-3">
+      <div class="pl-3 pr-3">
+        <h2 class="h3">Composición por nivel de estudios </h2>
+        <p class="mb-3 text-justify">En esta grafica te mostramos cual es la distribucion en legislatura <%- legislatura %> de acuerdo a el nivel de estudios: </p>
+      </div>
+      <div class="workspace" toggle="studies-table"></div>
+      <div class="selector text-center p-3">
+        Partido: <select id="party"></select>
+      </div>
+      <p class="text-center mt-3">
+        <span class="table-link font-italic font-weight-light" toggle="studies-table" toggle-text="Esconder tabla de datos">Ver tabla de datos</span>
+      </p>
+      <div class="studies-table p-3">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>Partido</th>
+              <%
+                for(var label in data.chamberStudiesByParty[0]) {
+                  if(label !== 'party') {
+              %>
+                <th><%- label %></th>
+              <% }} %>
+            </tr>
+          </thead>
+          <tbody>
+            <%
+              data.chamberStudiesByParty.forEach(item => {
+            %>
+              <tr>
+                <% for(label in item) { %>
+                  <td><%- item[label] %></td>
+                <% } %>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <footer class="text-muted font-italic">
+      <div class="container">
+        <p class="text-center pt-4">Contacto Legislativo &copy; 2018 | <a href="/privacidad">Privacidad</a></p>
+      </div>
+    </footer>
+    <script async src="/assets/js/chamber.bundle.js"></script>
   </body>
 </html>

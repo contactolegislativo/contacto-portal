@@ -12,13 +12,98 @@
 
     <div class="d-card">
       <div class="header hero">
-        <h1 class="h2">Asistencias</h1>
+        <h1 class="h2">Asistencias <%- legislature %></h1>
       </div>
     </div>
 
+    <div class="pl-3 pr-3 pt-3">
+      <h2 class="h3">Relación de sesiones</h2>
+      <p class="mb-5 text-justify">Durante la legislatura <%- legislature %> se han tenido las siguientes sesiones: </p>
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Dias</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%
+            let total = 0;
+            sessions.forEach(session => {
+              total += session.days;
+          %>
+            <tr>
+              <td><%- session.id %></td>
+              <td><%- session.name %></td>
+              <td><%- session.days %></td>
+              <td><%- session.startDate %></td>
+              <td><%- session.endDate %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+        <tfoot class="font-weight-bold">
+          <tr>
+            <td colspan="2">Total</td>
+            <td><%- total %></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="pl-3 pr-3 pt-3">
+      <h2 class="h3">Relación de asistencias</h2>
+      <p class="mb-5 text-justify">A continuación te mostramos la lista de diputados activos y el número de asistencias que ha tenido. </p>
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Ubicacion</th>
+            <th>Partido</th>
+            <th>A</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% deputies.forEach( deputy => { %>
+          <tr>
+            <td>
+              <a target="_blank" href="/camara-de-diputados/LXIII/<%- deputy.slug %>">
+                <%- deputy.displayName %>
+              </a>
+              <!-- &nbsp;
+              <span className="d-inline d-sm-none text-muted">(<%- deputy.party.toUpperCase() %>)</span>
+              <span className="d-block d-sm-none text-muted">
+                <%- deputy.state %> | D.<%- deputy.district %>
+              </span> -->
+            </td>
+            <td className="d-none d-sm-table-cell"><%- deputy.type %></td>
+            <td className="d-none d-sm-table-cell"><%- deputy.state %>, D.<%- deputy.district %></td>
+            <td className="d-none d-sm-table-cell"><%- deputy.party.toUpperCase() %></td>
+            <td><%- deputy.attendances %></tr>
+          </tr>
+        <% }) %>
+        </tbody>
+      </table>
+      <p class="mt-5 text-justify font-weight-light"><strong>Nota:</strong> Consideramos como asistencia aquellas relacionadas con ausencias por trabajo legislativo como lo son los registrados como asistencia por sistema,
+asistencia por comisión oficial, inasistencia por votaciones, permiso de mesa directiva. </p>
+      <p class="text-justify font-weight-light">Agrupamos como inasistencias a asistencia por cédula, inasistencia, inasistencia justificada, no registrada.</p>
+    </div>
+
+    <h2 class="h3 mt-5 pl-3">Detalles estadisticos</h2>
     <div class="attendance">
 
     </div><!-- /.container -->
+
+    <footer class="text-muted font-italic">
+      <div class="container">
+        <p class="text-center pt-4">Contacto Legislativo &copy; 2018 | <a href="/privacidad">Privacidad</a></p>
+      </div>
+    </footer>
     <link rel="stylesheet" href="/assets/css/datatables/css/jquery.dataTables.min.css">
     <script async src="/assets/js/attendance.bundle.js"></script>
   </body>
