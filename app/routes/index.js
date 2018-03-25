@@ -62,7 +62,7 @@ router.get('/LXIII/asistencias',(req, res, next) => {
 
 router.get('/LXIII/:slug', (req, res, next) => {
 	let queryString =
-    'select * from ProfileDetails where slug = :slug';
+    'select * from ProfileDetails where id in (select id from ProfileDetails where slug = :slug)';
 
 	let slug = req.params.slug;
 
@@ -75,8 +75,8 @@ router.get('/LXIII/:slug', (req, res, next) => {
 	  })
 	  .then(function(deputies) {
 			let titular = deputies.find(deputy => deputy.slug === slug);
-			let alternate = deputies.find(deputy => deputy.slug !== slug) || { displayName: 'Ninguno', attendances: 0 };
-			res.render('index', {
+			let alternates = deputies.filter(deputy => deputy.slug !== slug) || { displayName: 'Ninguno', attendances: 0 };
+			res.render('deputy', {
 		  		title: renderTitle(titular),
 					deputy: titular,
 					alternates: alternates
