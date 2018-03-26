@@ -35,7 +35,7 @@
           <h6 class="h6 t-s">Suplente: <%- alternate.displayName%>
             <%if (alternate.latestAttendance ) { %>
               <br>
-              <a href="/camara-de-diputados/LXIII/<%- alternate.slug%>">(<%- alternate.attendances%> Asistencias - <%- alternate.status.toLowerCase() %> <%- alternate.startDate %>-<%- alternate.latestAttendance %>)</a>
+              <a href="/camara-de-diputados/LXIII/<%- alternate.slug%>">(<%- alternate.attendances%> Asistencias de <%- alternate.startDate %> a <%- alternate.latestAttendance %>)</a>
             <% } %>
           </h6>
         <% }) %>
