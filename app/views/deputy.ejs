@@ -35,11 +35,7 @@
           <h6 class="h6 t-s">Suplente: <%- alternate.displayName%>
             <%if (alternate.latestAttendance ) { %>
               <br>
-<<<<<<< HEAD
               <a href="/camara-de-diputados/LXIII/<%- alternate.slug%>"><%- alternate.attendances%> Asistencias - (<%- `${alternate.startDate.getMonth() + 1}/${alternate.startDate.getFullYear()}` %> a <%- `${alternate.latestAttendance.getMonth() + 1}/${alternate.latestAttendance.getFullYear()} Estado ${alternate.status.toLowerCase()}` %>)</a>
-=======
-              <a href="/camara-de-diputados/LXIII/<%- alternate.slug%>">(<%- alternate.attendances%> Asistencias de <%- alternate.startDate %> a <%- alternate.latestAttendance %>)</a>
->>>>>>> a6ab763133222a06f713b1d6a23516eecd6cf5e5
             <% } %>
           </h6>
         <% }) %>
