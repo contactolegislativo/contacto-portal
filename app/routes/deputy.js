@@ -147,16 +147,15 @@ router.get('/:slug', (req, res, next) => {
 	  })
 	  .then(function(deputies) {
 			let titular = deputies.find(deputy => deputy.slug === slug);
-			let alternate = deputies.find(deputy => deputy.hash === titular.altHash) || deputies.find(deputy => deputy.slug !== slug);
-			res.render('index', {
+			let alternates = deputies.filter(deputy => deputy.slug !== slug) || { displayName: 'Ninguno', attendances: 0 };
+			res.render('deputy', {
 		  		title: renderTitle(titular),
 					deputy: titular,
-					alternate: alternate,
-					host: req.headers.host
+					alternates: alternates
 				});
 	  }, function(err) {
 			console.log(err);
-			renderError(res, `No se pudo encontrar informacion para el distrito  ${req.params.id} de ${cache[req.params.state].name}.`);
+			renderError(res, `No se pudo encontrar informacion para ${ slug.replace('-',' ') }.`);
 		});
 });
 
