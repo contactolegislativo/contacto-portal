@@ -35,11 +35,11 @@
           <h6 class="h6 t-s">Suplente: <%- alternate.displayName%>
             <%if (alternate.latestAttendance ) { %>
               <br>
-              <a href="/camara-de-diputados/LXIII/<%- alternate.slug%>">(<%- alternate.attendances%> Asistencias de <%- alternate.startDate %> a <%- alternate.latestAttendance %>)</a>
+              <a href="/camara-de-diputados/LXIII/<%- alternate.slug%>"><%- alternate.attendances%> Asistencias - (<%- `${alternate.startDate.getMonth() + 1}/${alternate.startDate.getFullYear()}` %> a <%- `${alternate.latestAttendance.getMonth() + 1}/${alternate.latestAttendance.getFullYear()} Estado ${alternate.status.toLowerCase()}` %>)</a>
             <% } %>
           </h6>
         <% }) %>
-        <h1 class="h4 t-s"><i class="fa fa-map-marker pr-2"></i> <%- deputy.state %>, Distrito <%- deputy.distict %></h1>
+        <h1 class="h4 t-s"><i class="fa fa-map-marker pr-2"></i> <%- deputy.state %>, Distrito <%- deputy.district %></h1>
         <h4 class="h4 t-s"><%- deputy.type %></h3>
         <ul class="btn-group mt-4 p-0">
           <li class="circle-btn" data-toggle="tooltip" data-placement="bottom" title="Curricula">
