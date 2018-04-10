@@ -1,0 +1,25 @@
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-92111911-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-92111911-1');
+  gtag('event', 'screen_view', { 'screen_name': '<%- title %>' });
+</script>
+
+<!-- Facebook Share -->
+<meta property="og:url"                content="https://contactolegislativo.com/camara-de-diputados/LXIII/<%- deputy.slug%>" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="<%- deputy.displayName %>" />
+<meta property="og:description"        content="Diputado para el estado de <%- deputy.state %>, Distrito <%- deputy.district %>, con el partido <%- deputy.party.toUpperCase()%> | Contacto Legislativo te provee un análisis cuantitativo de su desempeño." />
+<meta property="og:image" content="https://contactolegislativo.com/assets/img/deputy/canvas/<%- deputy.slug%>.png" />
+
+<!-- Twitter Share -->
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="<%- deputy.displayName %>"/>
+<meta name="twitter:description" content="Diputado para el estado de <%- deputy.state %>, Distrito <%- deputy.district %>, con el partido <%- deputy.party.toUpperCase()%> | Contacto Legislativo te provee un análisis cuantitativo de su desempeño."/>
+<meta name="twitter:site" content="@clegislativomx"/>
+<meta name="twitter:image" content="https://contactolegislativo.com/assets/img/deputy/canvas/<%- deputy.slug%>.png" />
+<meta name="twitter:creator" content="@wedevelopmx"/>
+<meta name="twitter:domain" content="contactolegislativo.com"/>
